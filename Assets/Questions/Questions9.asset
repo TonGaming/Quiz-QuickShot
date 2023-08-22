@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabd729dba87ccb448223f812dcb90d7, type: 3}
   m_Name: Questions9
   m_EditorClassIdentifier: 
-  question: The famous festival in Hanoi takes place during which time of the year?
+  question: The St. Joseph's Cathedral in Hanoi is a famous landmark influenced by
+    which architectural style?
+  answers:
+  - 
+  - 
+  - 
+  - 
+  correctAnswerIndex: 0
