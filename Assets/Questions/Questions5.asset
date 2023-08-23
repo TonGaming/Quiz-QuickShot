@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Questions5
   m_EditorClassIdentifier: 
   question: The Old Quarter of Hanoi is famous by what name?
+  answers:
+  - Western Quarter
+  - Old Town
+  - Eastern Quarter
+  - 'Northern Quarter '
+  correctAnswerIndex: 1

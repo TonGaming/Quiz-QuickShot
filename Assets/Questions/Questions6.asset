@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Questions6
   m_EditorClassIdentifier: 
   question: What is the largest square in Hanoi?
+  answers:
+  - Hoan Kiem Square
+  - Tran Phu Square
+  - Me Linh Square
+  - Ba Dinh Square
+  correctAnswerIndex: 3

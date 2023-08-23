@@ -15,7 +15,7 @@ MonoBehaviour:
   question: Which famous prison in Hanoi is known as the "Hanoi Hilton"?
   answers:
   - Son La prison
-  - Con Dao prison
   - Hoa Lo prison
+  - Con Dao prison
   - Thua Phu prison
-  correctAnswerIndex: 2
+  correctAnswerIndex: 1

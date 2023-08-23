@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Questions8
   m_EditorClassIdentifier: 
   question: Ngoc Son Temple is located on which island in Hoan Kiem Lake?
+  answers:
+  - Turtle Island
+  - Hoa Binh Island
+  - Pearl Island
+  - Thong Nhat Island
+  correctAnswerIndex: 2

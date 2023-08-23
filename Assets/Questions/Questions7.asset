@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Questions7
   m_EditorClassIdentifier: 
   question: Long Bien Bridge is a famous bridge in Hanoi. Which river does it span?
+  answers:
+  - To Lich River
+  - 'Sai Gon River '
+  - Red River
+  - To Lich River
+  correctAnswerIndex: 0

@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: Which famous Vietnamese dish is a specialty of Hanoi and consists of
     rice noodles, grilled pork, fresh herbs, and a savory broth?
+  answers:
+  - Pho
+  - Bun Rieu
+  - 'Banh Mi '
+  - 'Bun Cha '
+  correctAnswerIndex: 1

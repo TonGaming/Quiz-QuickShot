@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: Which iconic opera house in Hanoi is known for its French colonial architecture
     and hosts various cultural performances?
+  answers:
+  - Hanoi Opera House
+  - Thang Long Water Puppet Theater
+  - Vietnamese National Academy of Music
+  - Ha Noi Central Circus
+  correctAnswerIndex: 0

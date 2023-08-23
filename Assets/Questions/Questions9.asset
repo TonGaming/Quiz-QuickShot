@@ -15,8 +15,8 @@ MonoBehaviour:
   question: The St. Joseph's Cathedral in Hanoi is a famous landmark influenced by
     which architectural style?
   answers:
-  - 
-  - 
-  - 
-  - 
+  - Gothic
+  - Baroque
+  - Neoclassical
+  - Traditional
   correctAnswerIndex: 0

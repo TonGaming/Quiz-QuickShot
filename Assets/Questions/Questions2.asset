@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: Which street in Hanoi is famous for its vibrant nightlife, bars, and
     entertainment venues?
+  answers:
+  - Hang Da Street
+  - Hang Buom Street
+  - Ta Hien Street
+  - Hang Bai Street
+  correctAnswerIndex: 2

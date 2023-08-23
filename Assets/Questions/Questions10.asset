@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: Which lake in Hanoi is known for its picturesque scenery and the Tran
     Quoc Pagoda?
+  answers:
+  - Tay Ho Lake
+  - West Lake
+  - Linh Dam Lake
+  - Dieu Hoa Lake
+  correctAnswerIndex: 1
