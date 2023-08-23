@@ -15,15 +15,25 @@ public class Quiz : MonoBehaviour
     int correctAnswerIndex;
     [SerializeField] Sprite defaultAnswerSprite;
     [SerializeField] Sprite correctAnswerSprite;
+    // biến để thay đổi sprite của button (vàng + xanh)
+    Image buttonImage;
+    bool state = true;
 
-    private void Start()
+    void Start()
     {
-        DisplayQuestion();
+        Debug.Log("bdau chay: " + state);
+        GetNextQuestion();
+        SetButtonState(true);
+
     }
 
+    void Update()
+    {
+
+    }
     public void OnAnswerSelected(int index)
     {
-        Image buttonImage;
+
         // khi click vào button sẽ có index báo về
         // nếu index đó = với index của đáp án thì oke easy
         // chỉ cần tạo biến để thay sprite thoi
@@ -48,12 +58,25 @@ public class Quiz : MonoBehaviour
             questionText.text = "Sorry dear, The correct answer was:\n" + correctAnswer;
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
-
-
-
         }
+        state = false;
+        SetButtonState(state);
+        //SetButtonState(false);
+
+        // Khoá answerButton sau khi chọn đáp án mỗi câu
+        //for (int i = 0; i < answerButtons.Length; i++)
+        //{
+        //    Button button = answerButtons[i].GetComponent<Button>();
+        //    button.interactable = state;
+        //}
     }
 
+    void GetNextQuestion()
+    {
+        DisplayQuestion();
+        SetDefaultButtonSprite();
+        state = true;
+    }
     void DisplayQuestion()
     {
         /* truy cập vào text của questiontext, gán cho nó giá trị của 
@@ -66,5 +89,29 @@ public class Quiz : MonoBehaviour
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = question.GetAnswer(i);
         }
+    }
+
+    // cho phép click vào các phím khi state là true
+    // false thì khoá hết thông qua việc tắt interactable
+    void SetButtonState(bool state)
+    {
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            Button button = answerButtons[i].GetComponent<Button>();
+            button.interactable = state;
+        }
+    }
+
+    void SetDefaultButtonSprite()
+    {
+
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+
+            Image buttonImage = answerButtons[i].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerSprite;
+
+        }
+
     }
 }
