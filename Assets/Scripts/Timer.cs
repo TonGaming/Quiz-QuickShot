@@ -7,23 +7,23 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] float timeToThink = 20f;
-    [SerializeField] float timeToRevealAnswer = 10f;
+    [SerializeField] float timeToThink = 30f;
+    [SerializeField] float timeToRevealAnswer = 5f;
 
-    [SerializeField] bool isAnsweringQuestion; // default is false;
-    [SerializeField] bool loadNextQuestion; // default is false;
-    [SerializeField] float fillFraction;  // Timer fraction reducing
+    public bool isAnsweringQuestion; // default is false;
+    public bool loadNextQuestion; // default is false;
+    public float fillFraction;  // Timer fraction reducing
 
+    
     // k gán j, mặc định vừa vào = 0 luôn;
     float timerValue;
-    Image timerImage;
 
     void Start()
     {
         timerValue = timeToThink;
         isAnsweringQuestion = true;
         Debug.Log(timerValue);
-        timerImage = GetComponent<Image>();
+        
     }
 
     void Update()
@@ -45,14 +45,14 @@ public class Timer : MonoBehaviour
         {
             // 30/30 = 1 (fill 100%), 10/30 = 0.33... (fill 30%) and so on
             fillFraction = timerValue / timeToThink;
-            timerImage.fillAmount = fillFraction;
+           
 
         }
         // 
         else if (isAnsweringQuestion == false && timerValue > 0)
         {
             fillFraction = timerValue / timeToRevealAnswer;
-            timerImage.fillAmount = fillFraction;
+          
         }
 
         // Nếu TimerValue = 0 và đang true AnsweringTime(from start) 
@@ -77,5 +77,5 @@ public class Timer : MonoBehaviour
         Debug.Log(isAnsweringQuestion + ": " + timerValue + " / " + timeToThink + " = "+ fillFraction);
     }
 
-
+    
 }
