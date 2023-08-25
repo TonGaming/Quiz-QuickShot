@@ -1,31 +1,24 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using System;
-
 
 public class Quiz : MonoBehaviour
 {
     [Header("Questions")]
     [SerializeField] TextMeshProUGUI questionText;
-    [SerializeField] List<QuestionsSO> questionBank = new List<QuestionsSO>();
-    QuestionsSO currentQuestion;
+    [SerializeField] List<QuestionSO> questions = new List<QuestionSO>();
+    QuestionSO currentQuestion;
 
     [Header("Answers")]
     [SerializeField] GameObject[] answerButtons;
     int correctAnswerIndex;
     bool hasAnsweredEarly;
 
-
     [Header("Button Colors")]
     [SerializeField] Sprite defaultAnswerSprite;
     [SerializeField] Sprite correctAnswerSprite;
-    // biến để thay đổi sprite của button (vàng + xanh)
-    Image buttonImage;
-    bool state = true;
 
     [Header("Timer")]
     [SerializeField] Image timerImage;
@@ -33,34 +26,12 @@ public class Quiz : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("bdau chay: " + state);
-        GetNextQuestion();
-        // Random cau hoi
-        GetRandomQuestion();
-        SetButtonState(true);
         timer = FindObjectOfType<Timer>();
-    }
-
-    // Lấy random câu hỏi trong bể câu hỏi
-    private void GetRandomQuestion()
-    {
-        int index = UnityEngine.Random.Range(0, questionBank.Count);
-        currentQuestion = questionBank[index];
-
-        // Kiểm tra xem currentQuestion có tồn tại trong list không trước khi xoá nó đi 
-        if (questionBank.Contains(currentQuestion))
-        {
-            // Xoá currentQuestion đi sau khi in ra
-            questionBank.Remove(currentQuestion);
-            
-        }
     }
 
     void Update()
     {
-        // nối fillFraction của Timer.cs với FillAmount của Image(Image cũng được nối trong inspector)
         timerImage.fillAmount = timer.fillFraction;
-
         if (timer.loadNextQuestion)
         {
             hasAnsweredEarly = false;
@@ -69,60 +40,34 @@ public class Quiz : MonoBehaviour
         }
         else if (!hasAnsweredEarly && !timer.isAnsweringQuestion)
         {
-            /* k thể truyền vào từ 0 tới 3 vì có khả năng sẽ trùng với correctAnswerIndex
-             * vì thế ta sẽ truyền vào -1 để index đc truyền vào luôn luôn lệch với index của dáp án đúng
-             * và sẽ luôn hiện ra thông báo: b đã sai, đáp án đúng là abcxyz chứ kp là b đã chọn đúng đáp án 
-             */
             DisplayAnswer(-1);
             SetButtonState(false);
         }
     }
+
     public void OnAnswerSelected(int index)
     {
-        DisplayAnswer(index);
-
-        // set giá trị cho hasAnsweredEarly
         hasAnsweredEarly = true;
-
-        state = false;
-        SetButtonState(state);
-
-        // chon dap an thi khoa lai
+        DisplayAnswer(index);
+        SetButtonState(false);
         timer.CancelTimer();
-        //SetButtonState(false);
-
-        // Khoá answerButton sau khi chọn đáp án mỗi câu
-        //for (int i = 0; i < answerButtons.Length; i++)
-        //{
-        //    Button button = answerButtons[i].GetComponent<Button>();
-        //    button.interactable = state;
-        //}
     }
 
-    private void DisplayAnswer(int index)
+    void DisplayAnswer(int index)
     {
-        // khi click vào button sẽ có index báo về
-        // nếu index đó = với index của đáp án thì oke easy
-        // chỉ cần tạo biến để thay sprite thoi
+        Image buttonImage;
+
         if (index == currentQuestion.GetCorrectAnswerIndex())
         {
-            questionText.text = "Your answer is correct";
+            questionText.text = "Amazed me everytime, you smart cookies!";
             buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
         }
         else
         {
-            //questionText.text = "Your answer is incorrect! The correct answer was: " 
-            //    // Track tới đáp án đúng dựa vào index của đáp án
-            //    + answerButtons[correctAnswerIndex]; sai vì chưa gán correctAnswerIndex
-            //buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
-            //buttonImage.sprite = correctAnswerSprite;
-
-            // gán giá trị cho biến correctAnswerIndex
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
-            // tạo biến trung gian để nối vào questionText.text
             string correctAnswer = currentQuestion.GetAnswer(correctAnswerIndex);
-            questionText.text = "Sorry dear, The correct answer was:\n" + correctAnswer;
+            questionText.text = "Sorry dear, the correct answer was;\n" + correctAnswer;
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
         }
@@ -130,16 +75,28 @@ public class Quiz : MonoBehaviour
 
     void GetNextQuestion()
     {
-        DisplayQuestion();
-        SetDefaultButtonSprite();
-        state = true;
-        SetButtonState(true);
+        if (questions.Count > 0)
+        {
+            SetButtonState(true);
+            SetDefaultButtonSprites();
+            GetRandomQuestion();
+            DisplayQuestion();
+        }
     }
+
+    void GetRandomQuestion()
+    {
+        int index = Random.Range(0, questions.Count);
+        currentQuestion = questions[index];
+
+        if (questions.Contains(currentQuestion))
+        {
+            questions.Remove(currentQuestion);
+        }
+    }
+
     void DisplayQuestion()
     {
-        /* truy cập vào text của questiontext, gán cho nó giá trị của 
-        * currentQuestion, giá trị của currentQuestion thì truy cập tới kết quả
-        * currentQuestion của hàm getquestion() ở questionsSO */
         questionText.text = currentQuestion.GetQuestion();
 
         for (int i = 0; i < answerButtons.Length; i++)
@@ -149,8 +106,6 @@ public class Quiz : MonoBehaviour
         }
     }
 
-    // cho phép click vào các phím khi state là true
-    // false thì khoá hết thông qua việc tắt interactable
     void SetButtonState(bool state)
     {
         for (int i = 0; i < answerButtons.Length; i++)
@@ -160,7 +115,7 @@ public class Quiz : MonoBehaviour
         }
     }
 
-    void SetDefaultButtonSprite()
+    void SetDefaultButtonSprites()
     {
         for (int i = 0; i < answerButtons.Length; i++)
         {
