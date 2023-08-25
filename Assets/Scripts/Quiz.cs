@@ -4,12 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System;
+
 
 public class Quiz : MonoBehaviour
 {
     [Header("Questions")]
     [SerializeField] TextMeshProUGUI questionText;
-    [SerializeField] List<QuestionsSO> questions;
+    [SerializeField] List<QuestionsSO> questionBank = new List<QuestionsSO>();
     QuestionsSO currentQuestion;
 
     [Header("Answers")]
@@ -33,8 +35,25 @@ public class Quiz : MonoBehaviour
     {
         Debug.Log("bdau chay: " + state);
         GetNextQuestion();
+        // Random cau hoi
+        GetRandomQuestion();
         SetButtonState(true);
         timer = FindObjectOfType<Timer>();
+    }
+
+    // Lấy random câu hỏi trong bể câu hỏi
+    private void GetRandomQuestion()
+    {
+        int index = UnityEngine.Random.Range(0, questionBank.Count);
+        currentQuestion = questionBank[index];
+
+        // Kiểm tra xem currentQuestion có tồn tại trong list không trước khi xoá nó đi 
+        if (questionBank.Contains(currentQuestion))
+        {
+            // Xoá currentQuestion đi sau khi in ra
+            questionBank.Remove(currentQuestion);
+            
+        }
     }
 
     void Update()
