@@ -1151,8 +1151,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToThink: 3
-  timeToRevealAnswer: 10
+  timeToRevealAnswer: 5
   isAnsweringQuestion: 0
+  loadNextQuestion: 0
+  fillFraction: 0
 --- !u!4 &942166055
 Transform:
   m_ObjectHideFlags: 0
@@ -1643,6 +1645,7 @@ MonoBehaviour:
   - {fileID: 494032648}
   defaultAnswerSprite: {fileID: 21300000, guid: a0049b6aa815da44cab151035973e5bf, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: 507a897a5f9cb7e4bb7e8874e7996a95, type: 3}
+  timerImage: {fileID: 561814376}
 --- !u!1001 &329146874263120176
 PrefabInstance:
   m_ObjectHideFlags: 0
