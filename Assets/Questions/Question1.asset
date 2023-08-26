@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fabd729dba87ccb448223f812dcb90d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8a105869519254f86a31387b8a0469, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: 
-  question: Which famous prison in Hanoi is known as the "Hanoi Hilton"?
+  question: Which lake in Hanoi is known for its picturesque scenery and the Tran
+    Quoc Pagoda?
   answers:
-  - Son La prison
-  - Hoa Lo prison
-  - Con Dao prison
-  - Thua Phu prison
-  correctAnswerIndex: 1
+  - West Lake
+  - Tay Ho Lake
+  - Linh Dam Lake
+  - Van Quan Lake
+  correctAnswerIndex: 0

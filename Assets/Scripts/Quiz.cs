@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -24,8 +24,14 @@ public class Quiz : MonoBehaviour
     [SerializeField] Image timerImage;
     Timer timer;
 
+
+    [Header("Scoring")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    ScoreKeeper scoreKeeper;
+
     void Start()
     {
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
         timer = FindObjectOfType<Timer>();
     }
 
@@ -34,12 +40,14 @@ public class Quiz : MonoBehaviour
         timerImage.fillAmount = timer.fillFraction;
         if (timer.loadNextQuestion)
         {
+            // ấn trả lời phát chạy hết thời gian và chuyển sang thời gian hiện đáp án luôn
             hasAnsweredEarly = false;
             GetNextQuestion();
             timer.loadNextQuestion = false;
         }
         else if (!hasAnsweredEarly && !timer.isAnsweringQuestion)
         {
+            // thời gian hết mà k trả lời thì tự truyền vào index sai và k trùng index đáp án
             DisplayAnswer(-1);
             SetButtonState(false);
         }
@@ -51,18 +59,21 @@ public class Quiz : MonoBehaviour
         DisplayAnswer(index);
         SetButtonState(false);
         timer.CancelTimer();
+        scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
     }
 
     void DisplayAnswer(int index)
     {
         Image buttonImage;
-
+        // nếu chọn đáp án có index trùng với index đáp án đúng thì đổi sprite và hiện ra chúc mừng
         if (index == currentQuestion.GetCorrectAnswerIndex())
         {
             questionText.text = "Amazed me everytime, you smart cookies!";
             buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
+            scoreKeeper.IncrementCorrectAnswers();
         }
+        // chọn index khác thì hiện đáp án đúng ra và đổi sprite đáp án đúng
         else
         {
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
@@ -77,8 +88,12 @@ public class Quiz : MonoBehaviour
     {
         if (questions.Count > 0)
         {
+            // set state interactable của button
             SetButtonState(true);
+
+            // chuyển các button về sprite mặc định khi shift qua câu hỏi mới
             SetDefaultButtonSprites();
+
             GetRandomQuestion();
             DisplayQuestion();
         }
@@ -88,7 +103,7 @@ public class Quiz : MonoBehaviour
     {
         int index = Random.Range(0, questions.Count);
         currentQuestion = questions[index];
-
+        // làm việc với list thông qua contains và remove
         if (questions.Contains(currentQuestion))
         {
             questions.Remove(currentQuestion);

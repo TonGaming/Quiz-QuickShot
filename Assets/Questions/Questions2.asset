@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fabd729dba87ccb448223f812dcb90d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8a105869519254f86a31387b8a0469, type: 3}
   m_Name: Questions2
   m_EditorClassIdentifier: 
-  question: Which street in Hanoi is famous for its vibrant nightlife, bars, and
-    entertainment venues?
+  question: Which famous prison in Hanoi is known as the "Hanoi Hilton"?
   answers:
-  - Hang Da Street
-  - Hang Buom Street
-  - Ta Hien Street
-  - Hang Bai Street
+  - Son La Prison
+  - Con Dao Prison
+  - Hoa Lo Prison
+  - Thanh Xuan Prison
   correctAnswerIndex: 2

@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fabd729dba87ccb448223f812dcb90d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8a105869519254f86a31387b8a0469, type: 3}
   m_Name: Questions8
   m_EditorClassIdentifier: 
-  question: Ngoc Son Temple is located on which island in Hoan Kiem Lake?
+  question: Which iconic opera house in Hanoi is known for its French colonial architecture
+    and hosts various cultural performances?
   answers:
-  - Turtle Island
-  - Hoa Binh Island
-  - Pearl Island
-  - Thong Nhat Island
-  correctAnswerIndex: 2
+  - Hanoi Opera House
+  - Thang Long Water Puppet Theater
+  - Vietnamese National Academy of Music
+  - Ha Noi Musical Institute
+  correctAnswerIndex: 0
