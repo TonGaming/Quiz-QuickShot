@@ -29,10 +29,22 @@ public class Quiz : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     ScoreKeeper scoreKeeper;
 
+    [Header("Slider")]
+    [SerializeField] Slider progressBar;
+
+    public bool isComplete;
+    [Header("NextQuestion")]
+    [SerializeField] GameObject nextQuestionButton;
+
     void Start()
     {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         timer = FindObjectOfType<Timer>();
+
+        progressBar.maxValue = questions.Count;
+        progressBar.value = 0;
+
+        //nextQuestionButton.SetActive(false);
     }
 
     void Update()
@@ -60,6 +72,13 @@ public class Quiz : MonoBehaviour
         SetButtonState(false);
         timer.CancelTimer();
         scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
+
+       // nextQuestionButton.SetActive(true);
+
+        if (progressBar.value == progressBar.maxValue)
+        {
+            isComplete = true;
+        }
     }
 
     void DisplayAnswer(int index)
@@ -96,6 +115,10 @@ public class Quiz : MonoBehaviour
 
             GetRandomQuestion();
             DisplayQuestion();
+
+            progressBar.value++;
+
+            //nextQuestionButton.SetActive(false);
         }
     }
 
@@ -138,4 +161,13 @@ public class Quiz : MonoBehaviour
             buttonImage.sprite = defaultAnswerSprite;
         }
     }
+
+    // Khi ấn vào nút nextQuestion
+    //public void OnNextQuestionButtonSelected()
+    //{
+    //    GetNextQuestion();
+    //    timer.CancelTimer();
+    //    nextQuestionButton.SetActive(false);
+
+    //}
 }
