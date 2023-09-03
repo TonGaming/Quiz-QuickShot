@@ -25,10 +25,11 @@ public class GameManager : MonoBehaviour
         {
             quiz.gameObject.SetActive(false);
             endScreen.gameObject.SetActive(true);
+            endScreen.ShowFinalScore();
         }
     }
 
-    public void onRestartComplete()
+    public void onRestartLevel()
     {
         // Hồi còn ngây dại 
         // SceneManager.LoadScene("Quiz-Master");
