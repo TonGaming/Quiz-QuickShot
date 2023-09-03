@@ -50,8 +50,15 @@ public class Quiz : MonoBehaviour
     void Update()
     {
         timerImage.fillAmount = timer.fillFraction;
-        if (timer.loadNextQuestion)
-        {
+        if (timer.loadNextQuestion) // Nếu timer đã báo hết tgian show đáp án
+        {   
+            // check lần nữa khi hết tgian show đáp án và load câu quest kế, nhưng nếu đã maxValue(câu cuối) thì thôi báo ra isComplete luôn
+            if (progressBar.value == progressBar.maxValue)
+            {
+                isComplete = true;
+                // thêm return để ngắt hàm 
+                return;
+            }
             // ấn trả lời phát chạy hết thời gian và chuyển sang thời gian hiện đáp án luôn
             hasAnsweredEarly = false;
             GetNextQuestion();
@@ -73,12 +80,9 @@ public class Quiz : MonoBehaviour
         timer.CancelTimer();
         scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
 
-       // nextQuestionButton.SetActive(true);
+        // nextQuestionButton.SetActive(true);
 
-        if (progressBar.value == progressBar.maxValue)
-        {
-            isComplete = true;
-        }
+
     }
 
     void DisplayAnswer(int index)
