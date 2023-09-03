@@ -36,15 +36,12 @@ public class Quiz : MonoBehaviour
     [Header("NextQuestion")]
     [SerializeField] GameObject nextQuestionButton;
 
-    void Start()
+    void Awake()
     {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         timer = FindObjectOfType<Timer>();
-
         progressBar.maxValue = questions.Count;
         progressBar.value = 0;
-
-        //nextQuestionButton.SetActive(false);
     }
 
     void Update()
