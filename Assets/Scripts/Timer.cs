@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,12 +26,11 @@ public class Timer : MonoBehaviour
     void UpdateTimer()
     {
         timerValue -= Time.deltaTime;
-        // nếu đang trả lời cau hỏi mà hết tg -> tgian hiện đáp án
+
         if(isAnsweringQuestion)
         {
             if(timerValue > 0)
             {
-                // timer sẽ được chia dựa theo từng frame, phép chia này sẽ dựa theo thời gian trong inspector
                 fillFraction = timerValue / timeToCompleteQuestion;
             }
             else
@@ -40,7 +39,6 @@ public class Timer : MonoBehaviour
                 timerValue = timeToShowCorrectAnswer;
             }
         }
-        // nếu đang k trả lời câu hỏi mà còn thời gian -> chuyển thành tgian trả lời câu hỏi và load câu hỏi mới vào
         else
         {
             if(timerValue > 0)
