@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -31,10 +31,17 @@ public class Quiz : MonoBehaviour
     [Header("ProgressBar")]
     [SerializeField] Slider progressBar;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource backgroundMusic;
+    [SerializeField] AudioSource rightSound;
+    [SerializeField] AudioSource wrongSound;
+
+
     public bool isComplete;
 
     void Awake()
     {
+        backgroundMusic.Play();
         timer = FindObjectOfType<Timer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         progressBar.maxValue = questions.Count;
@@ -72,26 +79,32 @@ public class Quiz : MonoBehaviour
         scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
     }
 
+    // Hiện đáp án dựa theo câu trả lời của ng chơi
     void DisplayAnswer(int index)
     {
         Image buttonImage;
+        // trả lời đúng
         if (index == currentQuestion.GetCorrectAnswerIndex())
         {
             questionText.text = "Exactly, congratulations you smart cookies!";
             buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
             scoreKeeper.IncrementCorrectAnswers();
+            rightSound.Play();
         }
         else
         {
+            // trả lời sai
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
             string correctAnswer = currentQuestion.GetAnswer(correctAnswerIndex);
             questionText.text = "Sorry, the correct answer was:\n" + correctAnswer;
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
+            wrongSound.Play();
         }
     }
 
+    // Lấy ra câu hỏi tiếp theo chỉ khi quiz bank còn 
     void GetNextQuestion()
     {
         if (questions.Count > 0)
@@ -105,6 +118,7 @@ public class Quiz : MonoBehaviour
         }
     }
 
+    // Xoay random câu hỏi
     void GetRandomQuestion()
     {
         int index = Random.Range(0, questions.Count);

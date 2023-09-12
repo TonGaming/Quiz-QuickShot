@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     Quiz quiz;
     EndScreen endScreen;
+
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
             quiz.gameObject.SetActive(false);
             endScreen.gameObject.SetActive(true);
             endScreen.ShowFinalScore();
+            
         }
     }
 
