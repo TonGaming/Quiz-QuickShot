@@ -32,16 +32,17 @@ public class Quiz : MonoBehaviour
     [SerializeField] Slider progressBar;
 
     [Header("Audio")]
-    [SerializeField] AudioSource backgroundMusic;
-    [SerializeField] AudioSource rightSound;
-    [SerializeField] AudioSource wrongSound;
+    AudioSource myAudioSource;
+    [SerializeField] float volume = 0.5f;
 
+    [SerializeField] AudioClip rightSound;
+    [SerializeField] AudioClip wrongSound;
 
     public bool isComplete;
 
     void Awake()
     {
-        backgroundMusic.Play();
+        myAudioSource = GetComponent<AudioSource>();
         timer = FindObjectOfType<Timer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         progressBar.maxValue = questions.Count;
@@ -63,10 +64,11 @@ public class Quiz : MonoBehaviour
             GetNextQuestion();
             timer.loadNextQuestion = false;
         }
-        else if (!hasAnsweredEarly && !timer.isAnsweringQuestion)
+        else if (!hasAnsweredEarly && !timer.isAnsweringQuestion )
         {
             DisplayAnswer(-1);
             SetButtonState(false);
+            
         }
     }
 
@@ -90,17 +92,19 @@ public class Quiz : MonoBehaviour
             buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
             scoreKeeper.IncrementCorrectAnswers();
-            rightSound.Play();
+
+            myAudioSource.PlayOneShot(rightSound, volume);
         }
-        else
-        {
+        else if (index != currentQuestion.GetCorrectAnswerIndex())
+        { 
             // trả lời sai
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
             string correctAnswer = currentQuestion.GetAnswer(correctAnswerIndex);
             questionText.text = "Sorry, the correct answer was:\n" + correctAnswer;
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
-            wrongSound.Play();
+            myAudioSource.PlayOneShot(wrongSound, volume);
+            
         }
     }
 
@@ -116,6 +120,7 @@ public class Quiz : MonoBehaviour
             progressBar.value++;
 
         }
+
     }
 
     // Xoay random câu hỏi

@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
+
     Quiz quiz;
     EndScreen endScreen;
 
-    
+
     // Start is called before the first frame update
     void Awake()
     {
         quiz = FindObjectOfType<Quiz>();
         endScreen = FindObjectOfType<EndScreen>();
+
     }
     void Start()
     {
@@ -36,11 +38,16 @@ public class GameManager : MonoBehaviour
 
     public void onRestartLevel()
     {
+
+
         // Hồi còn ngây dại 
         // SceneManager.LoadScene("Quiz-Master");
 
         // Giờ đã khôn hơn - Lấy ra index của scene hiện tại 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+
+
 
     }
 }
